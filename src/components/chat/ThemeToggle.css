@@ -1,0 +1,30 @@
+.theme-toggle {
+  position: fixed;
+  bottom: 3%;
+  left: 3%;
+  z-index: 100;
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-semibold);
+  background-color: var(--color-border);
+  color: var(--color-text);
+  padding: var(--space-2);
+  border-radius: var(--radius-md);
+  border: 0;
+}
+
+@media (max-width: 960px) {
+  .theme-toggle {
+    position: fixed;
+    bottom: 3%;
+    left: 3%;
+    z-index: 100;
+    margin: 5px;
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-semibold);
+    background-color: var(--color-border);
+    color: var(--color-text);
+    padding: var(--space-2);
+    border-radius: var(--radius-md);
+    border: 0;
+  }
+}
