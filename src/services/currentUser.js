@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import auth from "./auth.services"; // your firebase.js
-import { useDispatch } from "react-redux";
+import { useDispatch} from "react-redux";
 import { loadChats } from "../store/chatSlice";
 
 export function useAuthUser() {
