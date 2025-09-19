@@ -3,10 +3,13 @@ import { createSlice, nanoid } from '@reduxjs/toolkit';
 // helpers
 const createEmptyChat = (title) => ({ id: nanoid(), title: title || 'New Chat', messages: [] });
 
+
 const chatSlice = createSlice({
     name: 'chat',
     initialState: {
-        chats: JSON.parse(localStorage.getItem('allChats')) || [],
+        // chats: JSON.parse(localStorage.getItem(`allChats`)) || [],
+        chats: [],
+        // chats: JSON.parse(localStorage.getItem('allChats')) || [],
         activeChatId: null,
         isSending: false,
         input: ''
@@ -68,9 +71,12 @@ const chatSlice = createSlice({
 
             state.chats = state.chats.filter(chat => chat.id != id);
 
-            if(state.activeChatId == id) {
+            if (state.activeChatId == id) {
                 state.activeChatId = state.chats.length > 0 ? state.chats[0].id : null
             };
+        },
+        loadChats(state, action) {
+            state.chats = action.payload
         }
     }
 });
@@ -84,7 +90,8 @@ export const {
     sendingFinished,
     addUserMessage,
     addAIMessage,
-    deleteChatTitle
+    deleteChatTitle,
+    loadChats
 } = chatSlice.actions;
 
 export default chatSlice.reducer;

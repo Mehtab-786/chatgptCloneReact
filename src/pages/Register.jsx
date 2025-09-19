@@ -5,7 +5,6 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import auth from "../services/auth.services";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ThemeToggle from "../components/ThemeToggle";
 
 
 const Register = () => {
@@ -96,7 +95,6 @@ const Register = () => {
           Already have an account? <Link to="/login">Sign in</Link>
         </p>
       </div>
-      <ThemeToggle />
     </div>
   );
 };

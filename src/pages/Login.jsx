@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import auth from "../services/auth.services";
 import { toast } from "react-toastify";
-import ThemeToggle from "../components/ThemeToggle";
 
 
 const Login = () => {
@@ -74,10 +73,9 @@ const Login = () => {
         </form>
 
         <p className="auth-alt">
-          Need an account? <Link to="/register">Create one</Link>
+          Need an account? <Link to="/register">Register</Link>
         </p>
       </div>
-      <ThemeToggle />
     </div>
   );
 };

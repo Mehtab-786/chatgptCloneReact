@@ -1,8 +1,12 @@
-.theme-toggle {
-  position: fixed;
-  bottom: 3%;
-  left: 3%;
-  z-index: 100;
+.theme-toggle,
+.logout-btn {
+  position: relative;
+  margin: 0;
+  width: 48%;
+  justify-content: center;
+  align-self: center;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
   font-size: var(--text-sm);
   font-weight: var(--font-weight-semibold);
   background-color: var(--color-border);
@@ -12,19 +16,12 @@
   border: 0;
 }
 
-@media (max-width: 960px) {
-  .theme-toggle {
-    position: fixed;
-    bottom: 3%;
-    left: 3%;
-    z-index: 100;
-    margin: 5px;
-    font-size: var(--text-sm);
-    font-weight: var(--font-weight-semibold);
-    background-color: var(--color-border);
-    color: var(--color-text);
-    padding: var(--space-2);
-    border-radius: var(--radius-md);
-    border: 0;
-  }
+.mode-logout {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  bottom: 4%;
+  width: 100%;
+  gap: 2%;
+  z-index: 100;
 }

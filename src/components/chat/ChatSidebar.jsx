@@ -1,7 +1,19 @@
 import ThemeToggle from '../ThemeToggle';
+import "./ThemeToggle.css";
 import './ChatSidebar.css';
+import auth from '../../services/auth.services'
+import { signOut } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
 const ChatSidebar = ({ chats, activeChatId, onSelectChat, onNewChat, open, onDeleteChat }) => {
+
+  const navigate = useNavigate()
+
+  async function logOut(){
+    await signOut(auth)
+    navigate('/login');     
+  }
+  
   return (
     <aside className={"chat-sidebar " + (open ? 'open' : '')} aria-label="Previous chats">
       <div className="sidebar-header">
@@ -22,7 +34,10 @@ const ChatSidebar = ({ chats, activeChatId, onSelectChat, onNewChat, open, onDel
         ))}
         {chats.length === 0 && <p className="empty-hint">No chats yet.</p>}
       </nav>
-      <ThemeToggle />
+      <div className='mode-logout'>
+        <ThemeToggle />
+        <button onClick={logOut} className='logout-btn'>Logout</button>
+      </div>
     </aside>
   );
 };

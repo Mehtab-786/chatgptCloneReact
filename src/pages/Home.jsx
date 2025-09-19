@@ -17,6 +17,7 @@ import {
   addUserMessage,
   addAIMessage,
   deleteChatTitle,
+  ensureInitialChat,
 } from "../store/chatSlice.js";
 import generateContent from "../services/ai.services.js";
 import { useAuthUser } from "../services/currentUser.js";
@@ -29,6 +30,7 @@ const Home = () => {
   const activeChatId = useSelector((state) => state.chat.activeChatId);
   const input = useSelector((state) => state.chat.input);
   const isSending = useSelector((state) => state.chat.isSending);
+  // const userUid = useSelector((state) => state.chat.user);
   const [sidebarOpen, setSidebarOpen] = React.useState(false);
 
   const activeChat = chats.find((c) => c.id === activeChatId) || null;
@@ -43,22 +45,29 @@ const Home = () => {
     setSidebarOpen(false);
   }, [dispatch]);
 
-  // Ensure at least one chat exists initially
-  // useEffect(() => {
-  //   dispatch(ensureInitialChat());
-  // }, [dispatch]);
-
-  const { loading, user } = useAuthUser();
+    const { loading, user } = useAuthUser();
 
   useEffect(() => {
     if (!loading && !user) {
       navigate("/login");
     }
+    console.log(user?.uid)        
   }, [loading, user, navigate]);
 
   useEffect(() => {
-    localStorage.setItem("allChats", JSON.stringify(chats));
-  }, [chats, addUserMessage, addAIMessage, activeChatId, deleteChatTitle]);
+    // Only persist chats when we have a logged-in user
+    if (!user?.uid) return;
+    try {
+      localStorage.setItem(`chats_${user.uid}`, JSON.stringify(chats));
+      // Ensure at least one chat exists initially
+    dispatch(ensureInitialChat());
+
+    } catch (err) {
+      // Storage could be full or blocked; log but don't crash the UI
+      console.error('Failed to save chats to localStorage', err);
+    }
+    // Persist when chats change or when active chat id changes
+  }, [chats, activeChatId, user?.uid]);
 
   const sendMessage = useCallback(async () => {
     const trimmed = input.trim();
